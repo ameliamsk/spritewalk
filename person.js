@@ -226,8 +226,9 @@ var sprite = {
         ctx.drawImage(img3, 128, 288, 96, 96, bush1.x, bush1.y, 64, 64);
         ctx.drawImage(img3, 128, 288, 96, 96, bush2.x, bush2.y, 64, 64);
         ctx.drawImage(img3, 128, 288, 96, 96, bush3.x, bush3.y, 64, 64);
-        // sprite
+        // sprites
         ctx.drawImage(img, sprite.imgx, sprite.imgy, 64, 64, sprite.x, sprite.y, 64, 64);
+        ctx.drawImage(img4, sprite2.imgx, sprite2.imgy, 64, 64, sprite2.x, sprite2.y, 64, 64);
     }
 };
 
@@ -410,7 +411,7 @@ var sprite2 = {
         ctx.drawImage(img3, 128, 288, 96, 96, bush1.x, bush1.y, 64, 64);
         ctx.drawImage(img3, 128, 288, 96, 96, bush2.x, bush2.y, 64, 64);
         ctx.drawImage(img3, 128, 288, 96, 96, bush3.x, bush3.y, 64, 64);
-        // sprite
+        // sprites
         ctx.drawImage(img, sprite.imgx, sprite.imgy, 64, 64, sprite.x, sprite.y, 64, 64);
         ctx.drawImage(img4, sprite2.imgx, sprite2.imgy, 64, 64, sprite2.x, sprite2.y, 64, 64);
     }
