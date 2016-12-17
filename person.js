@@ -11,20 +11,17 @@ var img3 = new Image();
 img3.src = "bush.png";
 var img4 = new Image();
 img4.src = "sprite2.png";
+var img5 = new Image();
+img5.src = "spritecan.png";
 
 canvas.width  = window.innerWidth - 21;
 canvas.height = window.innerHeight - 21;
-
 // bush1 object
 var bush1 =
 {
     x: 0,
     y: 0
 }
-bush1.x = Math.random() * (Math.floor(canvas.width / 64));
-bush1.x = Math.floor(bush1.x) * 64;
-bush1.y = Math.random() * (Math.floor(canvas.height / 64));
-bush1.y = Math.floor(bush1.y) * 64;
 
 // bush2 object
 var bush2 =
@@ -32,10 +29,6 @@ var bush2 =
     x: 0,
     y: 0,
 }
-bush2.x = Math.random() * (Math.floor(canvas.width / 64));
-bush2.x = Math.floor(bush2.x) * 64;
-bush2.y = Math.random() * (Math.floor(canvas.height / 64));
-bush2.y = Math.floor(bush2.y) * 64;
 
 // bush3 object
 var bush3 =
@@ -43,15 +36,18 @@ var bush3 =
     x: 0,
     y: 0
 }
-bush3.x = Math.random() * (Math.floor(canvas.width / 64));
-bush3.x = Math.floor(bush3.x) * 64;
-bush3.y = Math.random() * (Math.floor(canvas.height / 64));
-bush3.y = Math.floor(bush3.y) * 64;
+
+// sprite can object
+var spritecan = 
+{
+    x: 0,
+    y : 0
+}
 
 // sprite object
 var sprite = {
-    x: window.innerWidth/2,
-    y: window.innerHeight/2,
+    x: 0,
+    y: 0,
     width: 64,
     height: 64,
     direction:'none',
@@ -155,11 +151,29 @@ var sprite = {
         }
 
         // don't run into bush1
-        if (this.direction === 'up' && ((this.y <= bush1.y + 15 && this.y >= bush1.y) && (this.x >= bush1.x - 32 && this.x <= bush1.x + 32)))
+        if (this.direction === 'up' && ((this.y <= bush1.y && this.y >= bush1.y - 64) && (this.x >= bush1.x - 32 && this.x <= bush1.x + 64 - 32)))
         {
             this.y+=3;
         }
-        else if (this.direction === 'down' && ((this.y >= bush1.y - 64 && this.y <= bush1.y + 15) && (this.x >=bush1.x - 32 && this.x <= bush1.x + 32)))
+        else if (this.direction === 'down' && ((this.y >= bush1.y - 64 && this.y <= bush1.y) && (this.x >=bush1.x - 32 && this.x <= bush1.x + 32)))
+        {
+            this.y-=3;
+        }
+        if (this.direction === 'left' && ((this.x <= bush1.x - 32 + 64 && this.x >= bush1.x - 32) && (this.y >= bush1.y - 32 - 32 && this.y <= bush1.y + 64 - 32 - 32)))
+        {
+            this.x+=3;
+        }
+        else if (this.direction === 'right' && ((this.x + 64 >= bush1.x + 32 && this.x <= bush1.x + 32) && (this.y >= bush1.y - 32 - 32 && this.y <= bush1.y + 64 - 32 - 32)))
+        {
+            this.x-=3;
+        }
+        
+        // don't run into bush2
+        if (this.direction === 'up' && ((this.y <= bush1.y && this.y >= bush1.y - 64) && (this.x >= bush1.x - 32 && this.x <= bush1.x + 64 - 32)))
+        {
+            this.y+=3;
+        }
+        else if (this.direction === 'down' && ((this.y >= bush1.y - 64 && this.y <= bush1.y) && (this.x >=bush1.x - 32 && this.x <= bush1.x + 32)))
         {
             this.y-=3;
         }
@@ -172,42 +186,51 @@ var sprite = {
             this.x-=3;
         }
 
-        // don't run into bush2
-        if (this.direction === 'up' && ((this.y <= bush2.y + 15 && this.y >= bush2.y) && (this.x >= bush2.x - 32 && this.x <= bush2.x + 32)))
-        {
-            this.y+=3;
-        }
-        else if (this.direction === 'down' && ((this.y >= bush2.y - 64 && this.y <= bush2.y + 15) && (this.x >= bush2.x - 32 && this.x <= bush2.x + 32)))
-        {
-            this.y-=3;
-        }
-        if (this.direction === 'left' && ((this.x <= bush2.x - 32 + 64 && this.x >= bush2.x - 32) && (this.y >= bush2.y - 32 - 32 && this.y <= bush2.y + 64 - 32 - 32)))
-        {
-            this.x+=3;
-        }
-        else if (this.direction === 'right' && ((this.x + 64 >= bush2.x + 32 && this.x <= bush2.x + 32) && (this.y >= bush2.y - 32 - 32 && this.y <= bush2.y + 64 - 32 - 32)))
-        {
-            this.x-=3;
-        }
-
         // don't run into bush3
-
-        if (this.direction === 'up' && ((this.y <= bush3.y + 15 && this.y >= bush3.y) && (this.x >= bush3.x - 32 && this.x <= bush3.x + 32)))
+        if (this.direction === 'up' && ((this.y <= bush1.y && this.y >= bush1.y - 64) && (this.x >= bush1.x - 32 && this.x <= bush1.x + 64 - 32)))
         {
             this.y+=3;
         }
-        else if (this.direction === 'down' && ((this.y >= bush3.y - 64 && this.y <= bush3.y + 15) && (this.x >= bush3.x - 32 && this.x <= bush3.x + 32)))
+        else if (this.direction === 'down' && ((this.y >= bush1.y - 64 && this.y <= bush1.y) && (this.x >=bush1.x - 32 && this.x <= bush1.x + 32)))
         {
             this.y-=3;
         }
-        if (this.direction === 'left' && ((this.x <= bush3.x - 32 + 64 && this.x >= bush3.x - 32) && (this.y >= bush3.y - 32 - 32 && this.y <= bush3.y + 64 - 32 - 32)))
+        if (this.direction === 'left' && ((this.x <= bush1.x - 32 + 64 && this.x >= bush1.x - 32) && (this.y >= bush1.y - 32 - 32 && this.y <= bush1.y + 64 - 32 - 32)))
         {
             this.x+=3;
         }
-        else if (this.direction === 'right' && ((this.x + 64 >= bush3.x + 32 && this.x <= bush3.x + 32) && (this.y >= bush3.y - 32 - 32 && this.y <= bush3.y + 64 - 32 - 32)))
+        else if (this.direction === 'right' && ((this.x + 64 >= bush1.x + 32 && this.x <= bush1.x + 32) && (this.y >= bush1.y - 32 - 32 && this.y <= bush1.y + 64 - 32 - 32)))
         {
             this.x-=3;
         }
+
+        // IF SPRITE GETS SPRITE CAN
+       
+        if (this.direction === 'up' && ((this.y <= spritecan.y && this.y >= spritecan.y - 64) && (this.x >= spritecan.x - 32 && this.x <= spritecan.x + 64 - 32)))
+        {
+            this.y+=1;
+            window.alert("ROBIN SPRITE WINS/nPress OK to play again.");
+            Program.restart();
+        }
+        else if (this.direction === 'down' && ((this.y >= spritecan.y - 64 && this.y <= spritecan.y) && (this.x >=spritecan.x - 32 && this.x <= spritecan.x + 32)))
+        {
+            this.y-=1;
+            window.alert("ROBIN SPRITE WINS/nPress OK to play again.");
+            Program.restart();
+        }
+        if (this.direction === 'left' && ((this.x <= spritecan.x - 32 + 64 && this.x >= spritecan.x - 32) && (this.y >= spritecan.y - 32 - 32 && this.y <= spritecan.y + 64 - 32 - 32)))
+        {
+            this.x+=1;
+            window.alert("ROBIN SPRITE WINS/nPress OK to play again.");
+            Program.restart();
+        }
+        else if (this.direction === 'right' && ((this.x + 64 >= spritecan.x + 32 && this.x <= spritecan.x + 32) && (this.y >= spritecan.y - 32 - 32 && this.y <= spritecan.y + 64 - 32 - 32)))
+        {
+            this.x-=1;
+            window.alert("ROBIN SPRITE WINS/nPress OK to play again.");
+            Program.restart();
+        }
+
 
         slow++;
     },
@@ -226,8 +249,10 @@ var sprite = {
         ctx.drawImage(img3, 128, 288, 96, 96, bush1.x, bush1.y, 64, 64);
         ctx.drawImage(img3, 128, 288, 96, 96, bush2.x, bush2.y, 64, 64);
         ctx.drawImage(img3, 128, 288, 96, 96, bush3.x, bush3.y, 64, 64);
+        // sprite can
+        ctx.drawImage(img5, 0, 0, 430, 860, spritecan.x, spritecan.y, 16, 32);
         // sprites
-        ctx.drawImage(img, sprite.imgx, sprite.imgy, 64, 64, sprite.x, sprite.y, 64, 64);
+        ctx.drawImage(img, sprite.imgx, sprite.imgy, 64, 64, sprite.x + 24, sprite.y + 16, 64, 64);
         ctx.drawImage(img4, sprite2.imgx, sprite2.imgy, 64, 64, sprite2.x, sprite2.y, 64, 64);
     }
 };
@@ -235,8 +260,8 @@ var sprite = {
 
 // sprite 2 object
 var sprite2 = {
-    x: window.innerWidth/3,
-    y: window.innerHeight/3,
+    x: 0,
+    y: 0,
     width: 64,
     height: 64,
     direction:'none',
@@ -340,11 +365,11 @@ var sprite2 = {
         }
 
         // don't run into bush1
-        if (this.direction === 'up' && ((this.y <= bush1.y + 15 && this.y >= bush1.y) && (this.x >= bush1.x - 32 && this.x <= bush1.x + 32)))
+        if (this.direction === 'up' && ((this.y <= bush1.y && this.y >= bush1.y - 64) && (this.x >= bush1.x - 32 && this.x <= bush1.x + 64 - 32)))
         {
             this.y+=3;
         }
-        else if (this.direction === 'down' && ((this.y >= bush1.y - 64 && this.y <= bush1.y + 15) && (this.x >=bush1.x - 32 && this.x <= bush1.x + 32)))
+        else if (this.direction === 'down' && ((this.y >= bush1.y - 64 && this.y <= bush1.y) && (this.x >=bush1.x - 32 && this.x <= bush1.x + 32)))
         {
             this.y-=3;
         }
@@ -356,13 +381,13 @@ var sprite2 = {
         {
             this.x-=3;
         }
-
+        
         // don't run into bush2
-        if (this.direction === 'up' && ((this.y <= bush2.y + 15 && this.y >= bush2.y) && (this.x >= bush2.x - 32 && this.x <= bush2.x + 32)))
+        if (this.direction === 'up' && ((this.y <= bush2.y && this.y >= bush2.y - 64) && (this.x >= bush2.x - 32 && this.x <= bush2.x + 64 - 32)))
         {
             this.y+=3;
         }
-        else if (this.direction === 'down' && ((this.y >= bush2.y - 64 && this.y <= bush2.y + 15) && (this.x >= bush2.x - 32 && this.x <= bush2.x + 32)))
+        else if (this.direction === 'down' && ((this.y >= bush2.y - 64 && this.y <= bush2.y) && (this.x >=bush2.x - 32 && this.x <= bush2.x + 32)))
         {
             this.y-=3;
         }
@@ -376,12 +401,11 @@ var sprite2 = {
         }
 
         // don't run into bush3
-
-        if (this.direction === 'up' && ((this.y <= bush3.y + 15 && this.y >= bush3.y) && (this.x >= bush3.x - 32 && this.x <= bush3.x + 32)))
+        if (this.direction === 'up' && ((this.y <= bush3.y && this.y >= bush3.y - 64) && (this.x >= bush3.x - 32 && this.x <= bush3.x + 64 - 32)))
         {
             this.y+=3;
         }
-        else if (this.direction === 'down' && ((this.y >= bush3.y - 64 && this.y <= bush3.y + 15) && (this.x >= bush3.x - 32 && this.x <= bush3.x + 32)))
+        else if (this.direction === 'down' && ((this.y >= bush3.y - 64 && this.y <= bush3.y) && (this.x >=bush3.x - 32 && this.x <= bush3.x + 32)))
         {
             this.y-=3;
         }
@@ -393,8 +417,36 @@ var sprite2 = {
         {
             this.x-=3;
         }
-
+        
         slow++;
+
+        // IF SPRITE2 GETS SPRITE CAN
+       
+        if (this.direction === 'up' && ((this.y <= spritecan.y && this.y >= spritecan.y - 64) && (this.x >= spritecan.x - 32 && this.x <= spritecan.x + 64 - 32)))
+        {
+            this.y+=1;
+            window.alert("PURPLE SPRITE WINS/nPress OK to play again.");
+            Program.restart();
+        }
+        else if (this.direction === 'down' && ((this.y >= spritecan.y - 64 && this.y <= spritecan.y) && (this.x >=spritecan.x - 32 && this.x <= spritecan.x + 32)))
+        {
+            this.y-=1;
+            window.alert("PURPLE SPRITE WINS/nPress OK to play again.");
+            Program.restart();
+        }
+        if (this.direction === 'left' && ((this.x <= spritecan.x - 32 + 64 && this.x >= spritecan.x - 32) && (this.y >= spritecan.y - 32 - 32 && this.y <= spritecan.y + 64 - 32 - 32)))
+        {
+            this.x+=1;
+            window.alert("PURPLE SPRITE WINS/nPress OK to play again.");
+            Program.restart();
+        }
+        else if (this.direction === 'right' && ((this.x + 64 >= spritecan.x + 32 && this.x <= spritecan.x + 32) && (this.y >= spritecan.y - 32 - 32 && this.y <= spritecan.y + 64 - 32 - 32)))
+        {
+            this.x-=1;
+            window.alert("PURPLE SPRITE WINS/nPress OK to play again.");
+            Program.restart();
+        }
+
     },
     
 
@@ -411,9 +463,19 @@ var sprite2 = {
         ctx.drawImage(img3, 128, 288, 96, 96, bush1.x, bush1.y, 64, 64);
         ctx.drawImage(img3, 128, 288, 96, 96, bush2.x, bush2.y, 64, 64);
         ctx.drawImage(img3, 128, 288, 96, 96, bush3.x, bush3.y, 64, 64);
+        // sprite can
+        ctx.drawImage(img5, 0, 0, 430, 860, spritecan.x, spritecan.y, 16, 32);
         // sprites
+        if (sprite.y > sprite2.y)
+        {
+        ctx.drawImage(img4, sprite2.imgx, sprite2.imgy, 64, 64, sprite2.x, sprite2.y, 64, 64);
+        ctx.drawImage(img, sprite.imgx, sprite.imgy, 64, 64, sprite.x, sprite.y, 64, 64);
+        }
+        else
+        {
         ctx.drawImage(img, sprite.imgx, sprite.imgy, 64, 64, sprite.x, sprite.y, 64, 64);
         ctx.drawImage(img4, sprite2.imgx, sprite2.imgy, 64, 64, sprite2.x, sprite2.y, 64, 64);
+        }
     }
 };
 
@@ -482,11 +544,116 @@ var render = function()
     sprite2.render();
 };
 
-var main = function()
+var main2 = function()
 {
    update();
-   render(); 
-   window.requestAnimationFrame(main);
+   render();
 };
+
+var main = function()
+{
+   window.alert("Purple Sprite vs. Robin Sprite\nuse arrow keys to control Robin\nuse W,A,S,D keys to control Purple");
+   window.requestAnimationFrame(main2);
+}
+
+// randomizing location
+// sprite
+sprite.x = Math.random() * (Math.floor(canvas.width / 64));
+sprite.x = Math.floor(sprite.x) * 64;
+sprite.y = Math.random() * (Math.floor(canvas.height / 64));
+sprite.y = Math.floor(sprite.y) * 64;
+
+// sprite 2
+sprite2.x = Math.random() * (Math.floor(canvas.width / 64));
+sprite2.x = Math.floor(sprite2.x) * 64;
+sprite2.y = Math.random() * (Math.floor(canvas.height / 64));
+sprite2.y = Math.floor(sprite2.y) * 64;
+
+// bush 1
+bush1.x = Math.random() * (Math.floor(canvas.width / 64));
+bush1.x = Math.floor(bush1.x) * 64;
+bush1.y = Math.random() * (Math.floor(canvas.height / 64));
+bush1.y = Math.floor(bush1.y) * 64;
+
+// bush 2
+bush2.x = Math.random() * (Math.floor(canvas.width / 64));
+bush2.x = Math.floor(bush2.x) * 64;
+bush2.y = Math.random() * (Math.floor(canvas.height / 64));
+bush2.y = Math.floor(bush2.y) * 64;
+
+// bush 3
+bush3.x = Math.random() * (Math.floor(canvas.width / 64));
+bush3.x = Math.floor(bush3.x) * 64;
+bush3.y = Math.random() * (Math.floor(canvas.height / 64));
+bush3.y = Math.floor(bush3.y) * 64;
+
+// sprite can
+spritecan.x = Math.random() * (Math.floor(canvas.width / 64));
+spritecan.x = (Math.floor(spritecan.x) * 64) + 24;
+spritecan.y = Math.random() * (Math.floor(canvas.height / 64));
+spritecan.y = (Math.floor(spritecan.y) * 64) + 16;
+
+// overlaps
+// if sprite2 overlaps sprite
+if (sprite.x === sprite2.x && sprite.y === sprite2.y)
+{
+    while (sprite.x === sprite2.x && sprite.y === sprite2.y)
+    {
+        sprite2.x = Math.random() * (Math.floor(canvas.width / 64));
+        sprite2.x = Math.floor(sprite2.x) * 64;
+        sprite2.y = Math.random() * (Math.floor(canvas.height / 64));
+        sprite2.y = Math.floor(sprite2.y) * 64;
+    }
+}
+
+// if bush1 overlaps sprite1 or sprite2
+if ((sprite.x === bush1.x && sprite.y === bush1.y) || (sprite2.x === bush1.x && sprite2.y === bush1.y))
+{
+    while ((sprite.x === bush1.x && sprite.y === bush1.y) || (sprite2.x === bush1.x && sprite2.y === bush1.y))
+    {
+        bush1.x = Math.random() * (Math.floor(canvas.width / 64));
+        bush1.x = Math.floor(bush1.x) * 64;
+        bush1.y = Math.random() * (Math.floor(canvas.height / 64));
+        bush1.y = Math.floor(bush1.y) * 64;
+    }
+}
+
+// if bush2 overlaps sprite1 or sprite2
+if ((sprite.x === bush2.x && sprite.y === bush2.y) || (sprite2.x === bush2.x && sprite2.y === bush2.y))
+{
+    while ((sprite.x === bush2.x && sprite.y === bush2.y) || (sprite2.x === bush2.x && sprite2.y === bush2.y))
+    {
+        bush2.x = Math.random() * (Math.floor(canvas.width / 64));
+        bush2.x = Math.floor(bush2.x) * 64;
+        bush2.y = Math.random() * (Math.floor(canvas.height / 64));
+        bush2.y = Math.floor(bush2.y) * 64;
+    }
+}
+
+// if bush3 overlaps sprite1 or sprite2
+if ((sprite.x === bush3.x && sprite.y === bush3.y) || (sprite2.x === bush3.x && sprite2.y === bush3.y))
+{
+    while ((sprite.x === bush3.x && sprite.y === bush3.y) || (sprite2.x === bush3.x && sprite2.y === bush3.y))
+    {
+        bush3.x = Math.random() * (Math.floor(canvas.width / 64));
+        bush3.x = Math.floor(bush3.x) * 64;
+        bush3.y = Math.random() * (Math.floor(canvas.height / 64));
+        bush3.y = Math.floor(bush3.y) * 64;
+    }
+}
+
+// if spritecan overlaps bush1, bush2, bush3, sprite, or sprite2
+if ((spritecan.x === bush1.x && spritecan.y === bush1.y) || (spritecan.x === bush2.x && spritecan.y === bush2.y) || (spritecan.x === bush3.x && spritecan.y === bush3.y) || (spritecan.x === sprite.x && spritecan.y === sprite.y) || (spritecan.x === sprite2.x && spritecan.y === sprite2.y))
+{
+    while ((spritecan.x === bush1.x && spritecan.y === bush1.y) || (spritecan.x === bush2.x && spritecan.y === bush2.y) || (spritecan.x === bush3.x && spritecan.y === bush3.y) || (spritecan.x === sprite.x && spritecan.y === sprite.y) || (spritecan.x === sprite2.x && spritecan.y === sprite2.y))
+    {
+        spritecan.x = Math.random() * (Math.floor(canvas.width / 64));
+        spritecan.x = Math.floor(spritecan.x) * 64;
+        spritecan.y = Math.random() * (Math.floor(canvas.height / 64));
+        spritecan.y = Math.floor(spritecan.y) * 64;
+    }
+}
+
+
 
 main();
